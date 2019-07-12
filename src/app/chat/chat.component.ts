@@ -23,4 +23,6 @@ export class ChatComponent implements OnInit {
     console.log(this.Arreglo);
     this.mensaje = '';
   }
+
+  //metodos para enviar archivos atte el octa jujuju-----------------------------------------------------------
 }
