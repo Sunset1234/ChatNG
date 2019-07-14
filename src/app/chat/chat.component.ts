@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Mensaje } from '../Clases/mensaje';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  Arreglo = new Array<Mensaje>();
+  mensaje: string = '';
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
 
+  //método de prueba para mandar al chat
+  agregar(){
+    this.Arreglo.push(new Mensaje('yo', this.mensaje));
+    console.log(this.Arreglo);
+    this.mensaje = '';
+  }
+
+  //metodos para enviar archivos atte el octa jujuju-----------------------------------------------------------
 }
