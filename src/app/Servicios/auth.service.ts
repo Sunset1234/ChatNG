@@ -17,6 +17,16 @@ export class AuthService {
       password: password
     };
 
-    return this.http.post(conexion.url_http + 'registro', data);
+    return this.http.post<any>(conexion.url_http + 'registro', data);
+  }
+
+  login(username: string, password: string) {
+
+    var data = {
+      username: username,
+      password: password
+    };
+
+    return this.http.post<any>(conexion.url_http + 'login', data);
   }
 }

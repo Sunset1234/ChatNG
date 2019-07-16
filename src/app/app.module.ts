@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     RegistroComponent,
-    ChatComponent
+    ChatComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

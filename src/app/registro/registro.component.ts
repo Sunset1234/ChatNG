@@ -39,7 +39,9 @@ export class RegistroComponent implements OnInit {
     var { email, username, password } = this.form.value;
 
     this.service.crearUser(email, username, password).subscribe(res => {
-      // this.router.navigate(['/login']);
+      alert(res.msg)
+
+      this.router.navigate(['/login']);
     });
   }
 

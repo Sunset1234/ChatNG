@@ -1,3 +1,59 @@
-<p>
-  login works!
-</p>
+<div id="content">
+  <div class="row">
+    <div class="col-12">
+        <div class="offset-4 col-md-4" style="margin-top:50px; margin-bottom:50px;">
+          <div class="service-box">
+            <div class="service-content">
+                <form name="form" [(formGroup)]="form" (ngSubmit)="login($event)">
+                    <div class="text-center">
+                        <h4>Iniciar Sesión</h4>
+                      </div>
+                  <div class="form-group" style="margin-top: 5%;">
+                    <label for="">username</label>
+                    <input type="text" class="form-control" placeholder="Ingrese su username"
+                            formControlName="username"
+                            [ngClass]="{'is-invalid': form.get('username').touched && form.get('username').invalid, 'is-valid': form.get('username').touched && form.get('username').valid}">
+                    <div class="invalid-feedback">
+                      <ul>
+                        <li>El username es obligatorio.</li>
+                        <li>Mínimo debe contener 2 caracteres.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Contraseña</label>
+                    <input type="password" class="form-control" placeholder="Ingrese su contraseña"
+                            formControlName="password"
+                            [ngClass]="{'is-invalid': form.get('password').touched && form.get('password').invalid, 'is-valid': form.get('password').touched && form.get('password').valid}">
+                    <div class="invalid-feedback">
+                      <ul>
+                        <li>La contraseña es obligatorio.</li>
+                        <li>Mínimo debe contener 6 caracteres.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
+                  </div>
+                  <div>
+                    <button (click)='registro()' class="btn btn-success btn-block"  style="margin-bottom: 5%;">¿Eres nuevo? Registrate</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<footer style="margin-top:38px;">
+
+    <!-- Copyright -->
+    <div id="txtfooter" class="footer-copyright text-center py-3">© 2019 Copyright:
+      <a href="#"> LAME UTT</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+
+
+</div>
