@@ -9,30 +9,17 @@
                         <h4>Registro Usuario</h4>
                       </div>
                       <div class="form-group" style="margin-top: 5%;">
-                        <label for="">Email</label>
-                        <input type="text" class="form-control" placeholder="Ingrese su email"
-                              formControlName="email"
-                              [ngClass]="{'is-invalid': form.get('email').touched && form.get('email').invalid, 'is-valid': form.get('email').touched && form.get('email').valid}">
-                        <div class="invalid-feedback">
-                          <ul>
-                            <li>El email es obligatorio.</li>
-                            <li>Mínimo debe contener 2 caracteres.</li>
-                            <li>Debe ser una dirección válida.</li>
-                          </ul>
+                          <label for="">Nickname</label>
+                          <input type="text" class="form-control" placeholder="Ingrese su nickname"
+                                formControlName="nickname"
+                                [ngClass]="{'is-invalid': form.get('nickname').touched && form.get('nickname').invalid, 'is-valid': form.get('nickname').touched && form.get('nickname').valid}">
+                          <div class="invalid-feedback">
+                            <ul>
+                              <li>El nickname es obligatorio.</li>
+                              <li>Mínimo debe contener 2 caracteres.</li>
+                            </ul>
+                          </div>
                         </div>
-                      </div>
-                      <div class="form-group" style="margin-top: 5%;">
-                        <label for="">Username</label>
-                        <input type="text" class="form-control" placeholder="Ingrese su username"
-                              formControlName="username"
-                              [ngClass]="{'is-invalid': form.get('username').touched && form.get('username').invalid, 'is-valid': form.get('username').touched && form.get('username').valid}">
-                        <div class="invalid-feedback">
-                          <ul>
-                            <li>El username es obligatorio.</li>
-                            <li>Mínimo debe contener 2 caracteres.</li>
-                          </ul>
-                        </div>
-                      </div>
                       <div class="form-group">
                         <label for="">Contraseña</label>
                         <input type="password" class="form-control" placeholder="Ingrese su contraseña"

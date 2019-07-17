@@ -9,14 +9,25 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  crearUser(username: string, email: string, password: string) {
+  crearUser(nickname: string,  password: string) {
 
     var data = {
-      username: username,
-      email: email,
+      nickname:nickname,
       password: password
     };
 
-    return this.http.post(conexion.url_http + 'registro', data);
+    return this.http.post(conexion.url_http + 'Registro', data);
   }
+
+  root: string = conexion.url_http;
+  flag: boolean = false;
+
+  login(nickname: string, password: string, url: string) {
+    let jugador = {
+      nickname: nickname,
+      password: password
+    }
+    return this.http.post<any>(this.root + url, jugador);
+  }
+
 }

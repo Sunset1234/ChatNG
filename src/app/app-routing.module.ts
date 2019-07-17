@@ -2,15 +2,25 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { RegistroComponent } from './registro/registro.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
+    path:'',
+    component:LoginComponent
+  },
+  {
     path:'chat', 
-    component: ChatComponent},
+    component: ChatComponent
+  },
   {
     path: 'registro',
     component: RegistroComponent,
     // canActivate
+  },
+  {
+    path:'**',
+    component:LoginComponent
   }
 ];
 
