@@ -22,14 +22,31 @@
 
           </ul>
       </div>
-      <div class="col-9 chat" >
+      <div class="col-2 barra-contact-grupos">
+        <ul class="list-group pull-down" id="contact-list">
+            <li class="list-group-item" *ngFor="let grupo of grupos">
+                  <div class="row w-100">
+                      <div class="col-12 col-sm-6 col-md-3 px-0">
+                          <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                      </div>
+                      <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left" (click) = "irGrupo(grupo.id)">
+                            <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                            <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
+                            <br> 
+                      </div>
+                  </div>                
+            </li>
+
+        </ul>
+    </div>
+      <div class="col-7 chat" >
           <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow">
               <div class="col-12 d-flex flex-column" >
                   <div class="text-center  ">
                       <p class="lead "> prueba del chat alv compa</p>
                   </div>
                   <div class=" text-right bd-highlight overflow-auto" style="height: 80vh">
-                    <div class="" *ngFor="let item of Arreglo">
+                    <div class="" *ngFor="let item of mensajes">
                       <h6 class=" animated slideRight"> <b>{{ item.usuario }}</b> {{ ": "+ item.mensaje }}  </h6>
                     </div>
                   </div>
