@@ -1,0 +1,16 @@
+.barra-contact{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.pointer{
+    cursor:pointer;
+}
+
+.chat{
+    height: 100hv;    
+}
+
+.name{
+    margin-top:19px;
+}

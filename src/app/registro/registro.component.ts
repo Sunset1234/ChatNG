@@ -12,16 +12,10 @@ export class RegistroComponent implements OnInit {
 
   //reactive forms
   form = new FormGroup({
-    username: new FormControl('',
+    nickname: new FormControl('',
     [
       Validators.required,
       Validators.minLength(2),
-    ]),
-    email: new FormControl('',
-    [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.email
     ]),
     password: new FormControl('',
     [
@@ -36,10 +30,10 @@ export class RegistroComponent implements OnInit {
   }
 
   crear() {
-    var { email, username, password } = this.form.value;
+    var { nickname, password } = this.form.value;
 
-    this.service.crearUser(email, username, password).subscribe(res => {
-      // this.router.navigate(['/login']);
+    this.service.crearUser(nickname, password).subscribe(res => {
+      this.router.navigate(['/chat']);
     });
   }
 
