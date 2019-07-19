@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   login() {      
     this.auth_service.login(this.form.value.nickname, this.form.value.password, 'Login').subscribe(data => {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('jugador', data.jugador);
+      localStorage.setItem('id',data.id)
       localStorage.setItem('nick', data.nick);
       this.router.navigate(['/chat']);
      

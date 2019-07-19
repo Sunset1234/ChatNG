@@ -10,6 +10,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ContactosComponent } from './contactos/contactos.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ContactosComponent } from './contactos/contactos.component';
     LoginComponent,
     RegistroComponent,
     ChatComponent,
-    ContactosComponent
+    ContactosComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

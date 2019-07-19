@@ -1,16 +1,22 @@
 .barra-contact{
     height: 100vh;
     overflow-y: scroll;
+    width: 100vh;
 }
 
 .pointer{
     cursor:pointer;
 }
 
-.chat{
-    height: 100hv;    
-}
-
 .name{
     margin-top:19px;
+}
+
+.container-fluid{
+    margin:0;
+}
+
+.barra{
+    background-color:rgb(231, 231, 231);
+    padding-left:100px;
 }

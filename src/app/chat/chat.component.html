@@ -1,65 +1,77 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-3 barra-contact">
-          <ul class="list-group pull-down" id="contact-list">
-              <li class="list-group-item" *ngFor="let item of Usuario">
-                <a href="">
-                    <div class="row w-100">
-                        <div class="col-12 col-sm-6 col-md-3 px-0">
-                            <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
-                        </div>
-                        <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
-                          
-                              <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
-                              <label class="pointer name lead">{{item.nickname}}</label>
-                              <br> 
-                         
-                        </div>
-                    </div>
-                </a>
-                  
-              </li>
 
-          </ul>
-      </div>
-      <div class="col-9 chat" >
-          <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow">
-              <div class="col-12 d-flex flex-column" >
-                  <div class="text-center  ">
-                      <p class="lead "> prueba del chat alv compa</p>
-                  </div>
-                  <div class=" text-right bd-highlight overflow-auto" style="height: 80vh">
-                    <div class="" *ngFor="let item of Arreglo">
-                      <h6 class=" animated slideRight"> <b>{{ item.usuario }}</b> {{ ": "+ item.mensaje }}  </h6>
-                    </div>
-                  </div>
+        <div class="col-3 barra-contact">
+
+          <div class="row barra">
+              <div class="col-2">
+                <h3>{{this.nick}}</h3>
               </div>
-            
-              <div class="col-12 align-items-end">
-                <form action="">
-                  <div class="form-group">
-                    <div class="form-row">
-                      <div class="col">
-                          <button type="button" class="btn-dark">
-                              <i class=" fa fa-camera" style="font-size: 30px; color: white;"></i>
-                            </button>
+              <div class="col-lg-6 offset-3">
+                <div class="form-group">
+                  <button class="btn btn-danger" (click)="CerrarSesion()">Cerrar Sesión</button>
+                </div>
+              </div>
+          </div>
+      
+          <div>
+             
+              <ul class="list-group" id="contact-list">
+                <li class="list-group-item contacto" *ngFor="let item of Usuario">
+                  <a (click)="ClickUsuario(item)">
+                      <div class="row w-100">
+                          <div class="col-12 col-sm-6 col-md-3 px-0">
+                              <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                          </div>
+                          <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                                <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                                <label class="pointer name lead">{{item.nickname}}</label>
+                                <br> 
+                          </div>
                       </div>
-                      <div class="col-10">
-                        <input type="text" [(ngModel)]="mensaje" name="mensaje" placeholder="Escribe el mensaje aquí" class="form-control rounded shadow-sm">
-                      </div>
-                      <div class="col">
-                        <button type="button" (click)="agregar()" class="btn-dark">
-                          <i class=" fa fa-arrow-circle-right" style="font-size: 30px; color: white;"></i>
-                        </button>
-            
+                  </a>
+                </li>
+              </ul>
+          </div>
+        </div>
+
+        <div class="col-9 chat">
+            <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow">
+                <div class="col-12 d-flex flex-column" >
+                    <div class="text-center  ">
+                        <p class="lead "> prueba del chat alv compa</p>
+                    </div>
+                    <div class=" text-right bd-highlight overflow-auto" style="height: 80vh">
+                      <div class="" *ngFor="let item of Arreglo">
+                        <h6 class=" animated slideRight"> <b>{{ item.usuario }}</b> {{ ": "+ item.mensaje }}  </h6>
                       </div>
                     </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-            
+                </div>
+                <div class="col-12 align-items-end">
+                  <form action="">
+                    <div class="form-group">
+                      <div class="form-row">
+                        <div class="col">
+                            <button type="button" class="btn-dark">
+                                <i class=" fa fa-camera" style="font-size: 30px; color: white;"></i>
+                              </button>
+                        </div>
+                        <div class="col-10">
+                          <input type="text" [(ngModel)]="mensaje" name="mensaje" placeholder="Escribe el mensaje aquí" class="form-control rounded shadow-sm">
+                        </div>
+                        <div class="col">
+                          <button type="button" (click)="agregar()" class="btn-dark">
+                            <i class=" fa fa-arrow-circle-right" style="font-size: 30px; color: white;"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+            </div>           
+        </div>
+
       </div>
-    </div>
-  </div>
+</div>
+
 

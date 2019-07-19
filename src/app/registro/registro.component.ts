@@ -49,10 +49,8 @@ export class RegistroComponent implements OnInit {
     this.service.crearUser(nickname, password).subscribe(data => {
 
       Contactos.emit('message', data);
-      console.log("1")
-      console.log(data)
-      this.router.navigate(['/chat']);
-      console.log("2")
+      this.router.navigate(['/']);
+
     });
 
   }

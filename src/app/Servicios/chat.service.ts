@@ -10,9 +10,9 @@ export class ChatService {
   constructor(private http: HttpClient) { }
 
   root: string = conexion.url_http;
-  GetContactos(){
+  GetContactos(id){
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.post(this.root+'GetUsuarios',{headers:headers});
+    return this.http.post(this.root+'GetUsuarios/'+id,{headers:headers});
   }
 
 }
