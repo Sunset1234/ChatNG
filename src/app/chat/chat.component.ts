@@ -67,7 +67,9 @@ export class ChatComponent implements OnInit {
       this.mensaje
     );
 
-    this._ChatService.sendMessageToGroup(this.grupo, msj);
+    this._ChatService.sendMessageToGroup(this.grupo, msj).subscribe(res => {
+      console.log(res)
+    });
   }
 
   ngOnDestroy(): void {
