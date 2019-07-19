@@ -3,21 +3,21 @@
       <div class="col-3 barra-contact">
           <ul class="list-group pull-down" id="contact-list">
               <li class="list-group-item" *ngFor="let item of Usuario">
-                <a href="">
+                <a (click)="mandar(item.id , item.nickname)">
                     <div class="row w-100">
                         <div class="col-12 col-sm-6 col-md-3 px-0">
                             <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                         </div>
                         <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
-                          
+
                               <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
                               <label class="pointer name lead">{{item.nickname}}</label>
-                              <br> 
-                         
+                              <br>
+
                         </div>
                     </div>
                 </a>
-                  
+
               </li>
 
           </ul>
@@ -32,9 +32,9 @@
                       <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left" (click) = "irGrupo(grupo.id)">
                             <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
                             <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
-                            <br> 
+                            <br>
                       </div>
-                  </div>                
+                  </div>
             </li>
 
         </ul>
@@ -51,7 +51,7 @@
                     </div>
                   </div>
               </div>
-            
+
               <div class="col-12 align-items-end">
                 <form action="">
                   <div class="form-group">
@@ -68,14 +68,14 @@
                         <button type="button" (click)="agregar()" class="btn-dark">
                           <i class=" fa fa-arrow-circle-right" style="font-size: 30px; color: white;"></i>
                         </button>
-            
+
                       </div>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
-            
+
       </div>
     </div>
   </div>

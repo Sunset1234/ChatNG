@@ -7,7 +7,7 @@ import { Mensaje } from '../Clases/mensaje';
   providedIn: 'root'
 })
 export class ChatService {
-  
+
   constructor(private http: HttpClient) { }
 
   root: string = conexion.url_http;
@@ -36,6 +36,11 @@ export class ChatService {
     };
 
     return this.http.post<any>(this.root + 'grupopost', obj);
+  }
+
+  obtener_chats(emisor, remitente) {
+
+    return this.http.post(this.root + 'chats', { emisor, remitente});
   }
 
 }

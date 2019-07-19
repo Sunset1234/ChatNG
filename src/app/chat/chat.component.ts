@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit {
     //Listener para nuevos Contactos
     this.channel.on('message', (data) => {
       this._ChatService.GetContactos().subscribe(data=>{
-        this.Usuario=data     
+        this.Usuario=data
       });
     });
 
@@ -103,7 +103,7 @@ export class ChatComponent implements OnInit {
         )
       );
     });
-    
+
     this.channel.on('entrar', data => {
       console.log('acaba de entrar un usuario')
     });
@@ -114,6 +114,15 @@ export class ChatComponent implements OnInit {
 
   }
 
+  //mandar datos al chat
+  mandar(id , nickname){
+    const remitente = { id: id, nickname};
+    const emisor = {id: localStorage.getItem('jugador') , nickname: localStorage.getItem('nick')};
+    this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
+      console.log(data);
+    });
+
+  }
 
   //metodos para enviar archivos atte el octa jujuju-----------------------------------------------------------
 }
