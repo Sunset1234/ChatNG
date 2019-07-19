@@ -29,13 +29,17 @@ export class RegistroComponent implements OnInit {
 
   //Conexión WebSocket
   socket = Ws(conexion.url_websocket);
-  constructor(private router: Router,private service: AuthService) { }
+  constructor(private router: Router,private service: AuthService,private _Router:Router) { }
 
   ngOnInit() {
 
     //Conectar y Subscribir
     this.socket = this.socket.connect();
     this.socket.subscribe('Contactos');
+  }
+
+  IniciarSesion(){
+    this._Router.navigate(['/login']);
   }
 
   crear() {

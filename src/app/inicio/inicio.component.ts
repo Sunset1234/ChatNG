@@ -13,8 +13,12 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
   }
 
-  Redireccion(){
+  IniciarSesion(){
     this._Router.navigate(['/login']);
+  }
+
+  Registrarse(){
+    this._Router.navigate(['/registro']);
   }
 
 }
