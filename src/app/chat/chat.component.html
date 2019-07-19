@@ -1,41 +1,65 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-3 barra-contact">
-
+        <!-----------BARRA LATERAL IZQUIERDA------->
+        <div class="col-3 barra-contact"> 
           <div class="row barra">
-              <div class="col-2">
-                <h3>{{this.nick}}</h3>
+
+            <!--------NICKNAME Y CERRAR SESIÓN------>
+            <div class="col-2">
+              <h3>{{this.nick}}</h3>
+            </div>
+            <div class="col-lg-6 offset-3">
+              <div class="form-group">
+                <button class="btn btn-danger" (click)="CerrarSesion()">Cerrar Sesión</button>
               </div>
-              <div class="col-lg-6 offset-3">
-                <div class="form-group">
-                  <button class="btn btn-danger" (click)="CerrarSesion()">Cerrar Sesión</button>
-                </div>
-              </div>
+            </div>
           </div>
       
+          <!---------------BARRA DE CONTACTOS--------------->
           <div>
-             
-              <ul class="list-group" id="contact-list">
-                <li class="list-group-item contacto" *ngFor="let item of Usuario">
-                  <a (click)="ClickUsuario(item)">
+            <ul class="list-group" id="contact-list">
+              <li class="list-group-item contacto" *ngFor="let item of Usuario">
+                <a (click)="ClickUsuario(item)">
+                  <div class="row w-100">
+                    <div class="col-12 col-sm-6 col-md-3 px-0">
+                        <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                    </div>
+                    <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                          <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                          <label class="pointer name lead">{{item.nickname}}</label>
+                          <br> 
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div> 
+
+        </div><!--FIN BARRA IZQUIERDA-->
+
+
+        <!-----------------BARRA DE GRUPOS----------------->
+        <div class="col-2 barra-contact-grupos">
+            <ul class="list-group pull-down" id="contact-list">
+                <li class="list-group-item" *ngFor="let grupo of grupos">
                       <div class="row w-100">
                           <div class="col-12 col-sm-6 col-md-3 px-0">
                               <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                           </div>
-                          <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                          <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left" (click) = "irGrupo(grupo.id)">
                                 <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
-                                <label class="pointer name lead">{{item.nickname}}</label>
+                                <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
                                 <br> 
                           </div>
-                      </div>
-                  </a>
+                      </div>                
                 </li>
-              </ul>
-          </div>
+            </ul>
         </div>
+        
 
-        <div class="col-9 chat">
+        <!------------------------CHAT------------------------>
+        <div class="col-7 chat">
             <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow">
                 <div class="col-12 d-flex flex-column" >
                     <div class="text-center  ">
@@ -69,9 +93,9 @@
                   </form>
                 </div>
             </div>           
-        </div>
+        </div><!---FIN CHAT-->
 
-      </div>
+    </div><!------FIN ROW------->
 </div>
 
 
