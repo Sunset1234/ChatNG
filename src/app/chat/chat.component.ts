@@ -88,7 +88,7 @@ export class ChatComponent implements OnInit {
     );
 
     this._ChatService.sendMessageToGroup(this.grupo, msj).subscribe(res => {
-      console.log(res)
+      this.mensaje = '';
     });
   }
 
@@ -96,7 +96,7 @@ export class ChatComponent implements OnInit {
     this.grupo = id_grupo;
     //traer historial del grupo
     this._ChatService.GetChatGrupo(id_grupo).subscribe(res => {
-      this.mensajes = res.chats.map((data) => {
+      this.Arreglo = res.chats.map((data) => {
         return new Mensaje(
           data.mensaje[0].emisor_nombre,
           data.mensaje[0].mensaje
@@ -114,7 +114,7 @@ export class ChatComponent implements OnInit {
     });
 
     this.channel.on('mensaje', data => {
-      this.mensajes.push(
+      this.Arreglo.push(
         new Mensaje(
           data.emisor_nombre,
           data.mensaje
@@ -129,7 +129,10 @@ export class ChatComponent implements OnInit {
     this.channel.on('close', data => {
 
     });
+  }
 
+  escribiendo() {
+    alert("JAJAJA")
   }
 
 
