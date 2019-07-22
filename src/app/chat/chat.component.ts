@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
       });
     });
     this.channel.on('historial',(data) => {
-
+      console.log(data);
     });
   }
 
@@ -61,7 +61,6 @@ export class ChatComponent implements OnInit {
 
   //método de prueba para mandar al chat
   agregar(){
-
     /*
     var msj = new Mensaje(
       localStorage.getItem('nombre'),
@@ -131,19 +130,13 @@ export class ChatComponent implements OnInit {
       console.log(data);
       console.log(data['chat']._id);
       localStorage.setItem('chat', data['chat']._id);
-     /* if (data['mensajes'] === null) {
-        this.mensajes = new Array<Mensaje>();
-      } else {
-       /*data['mensajes'].forEach((valor)=>{
-        this.mensajes.push(new Mensaje(data['chatUser'], valor.mensaje));
-       });
-       console.log(data['mensajes'][0].mensaje);
-       this.mensajes = data['mensajes'][0].mensaje;
-
-      }*/
       this.mensajes= new Array<Mensaje>();
       this.MensajeTitulo = 'Estás charlando con: ' + nickname;
        });
+
+    this.channel = this.socket.('mensaje:' + localStorage.getItem('chat'));
+
+    this.channel.emit('seleccion',{emisor, remitente});
 
   }
 
