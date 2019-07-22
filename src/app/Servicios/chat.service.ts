@@ -27,12 +27,12 @@ export class ChatService {
     return this.http.get<any>(this.root + 'grupo/' + grupo_id);
   }
 
-  sendMessageToGroup(grupo_id: number, mensaje: Mensaje) {
+  sendMessageToGroup(grupo_id: number, mensaje: Mensaje,tipo: string) {
     var obj = {
       grupo_id: grupo_id,
       emisor_id: parseInt(localStorage.getItem('user_id')),
       mensaje: mensaje.mensaje,
-      tipo: 'txt'
+      tipo: tipo
     };
 
     console.log("MANDNDO EL PUTO OBJETO POR QUE NO LLEGA AAAAAAA")

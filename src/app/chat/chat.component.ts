@@ -9,6 +9,9 @@ import { Key } from '../Modelos/key';
 import * as $ from 'jquery';
 import { Observable, fromEvent, observable } from 'rxjs';
 import { throttleTime, map, debounceTime, merge } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { strictEqual } from 'assert';
+import { text } from '@angular/core/src/render3';
 
 
 @Component({
@@ -30,7 +33,7 @@ export class ChatComponent implements OnInit {
   //Conexión WebSocket
   socket= Ws(conexion.url_websocket);
   channel: any;
-  constructor(private _ChatService:ChatService,private _Router:Router) {
+  constructor(private http:HttpClient,private _ChatService:ChatService,private _Router:Router) {
 
 
     //Conexión y subscripción
@@ -81,6 +84,7 @@ export class ChatComponent implements OnInit {
   }
 
   //Método de prueba para mandar al chat
+  tipo:string;
   agregar(){
     // this.Arreglo.push(new Mensaje('yo', this.mensaje));
     // console.log(this.Arreglo);
@@ -90,8 +94,8 @@ export class ChatComponent implements OnInit {
       localStorage.getItem('nombre'),
       this.mensaje
     );
-
-    this._ChatService.sendMessageToGroup(this.grupo, msj).subscribe(res => {
+      this.tipo='txt';
+    this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
       this.mensaje = '';
     });
   }
@@ -106,6 +110,8 @@ export class ChatComponent implements OnInit {
           data.mensaje[0].mensaje
         );
       });
+      console.log('-- arreglo')
+      console.log(this.Arreglo)
       this.subscribirGrupo(id_grupo);
     });
   }
@@ -219,5 +225,77 @@ export class ChatComponent implements OnInit {
   ngOnDestroy(): void {
     this.socket.close();
   }
+
+  //Enviar Archivos------------------------------------------------------------------------------------------------------------------
+  //para enviar audios-------
+  guardaraudio(event){
+    alert('holaaaa archivo');  
+    let elemnt = event.target
+    let formData = new FormData()     
+     
+     if(elemnt.files.length > 0)
+     {
+       formData.append('file',elemnt.files[0])
+       this.http.post<any>('http://localhost:3333/archivos',formData).subscribe(res =>{
+       console.log(res);
+       var msj = new Mensaje(
+        localStorage.getItem('nombre'),
+        res.url
+      );
+        this.tipo='audio';
+
+      this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
+        this.mensaje = '';
+        console.log(this.tipo);
+      });
+       })
+     }  
+  }
+//para enviar imagen---------------
+  guardarimagen(event){
+    alert('holaaaa archivo');  
+    let elemnt = event.target
+    let formData = new FormData()     
+     
+     if(elemnt.files.length > 0)
+     {
+       formData.append('file',elemnt.files[0])
+       this.http.post<any>('http://localhost:3333/archivos',formData).subscribe(res =>{
+       console.log(res);
+       var msj = new Mensaje(
+        localStorage.getItem('nombre'),
+        res.url
+      );
+        this.tipo='imagen';
+
+      this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
+        this.mensaje = '';
+        console.log(this.tipo);
+      });
+       })
+     }
+    }
+//para enviar videos------------------
+    guardarvideo(event){
+    let elemnt = event.target
+    let formData = new FormData()     
+      if(elemnt.files.length > 0)
+     {
+        formData.append('file',elemnt.files[0])
+        this.http.post<any>('http://localhost:3333/archivos',formData).subscribe(res =>{
+        console.log(res);
+        var msj = new Mensaje(
+          localStorage.getItem('nombre'),
+          res.url
+        );
+          this.tipo='video';
+        this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
+          this.mensaje = '';
+          console.log(this.tipo);
+        });
+        })
+      }
+      }
+   
 
 }
