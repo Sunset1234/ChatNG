@@ -55,7 +55,7 @@ export class ChatComponent implements OnInit {
     this.llaves = new Key();
 
     //Información Usuario
-    this.id=localStorage.getItem('id');
+    this.id=localStorage.getItem('user_id');
     this.nick=localStorage.getItem('nick')
 
     //Obtener Contactos
