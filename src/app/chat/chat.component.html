@@ -81,12 +81,15 @@
                               </button>
                         </div>
                         <div class="col-10">
-                          <input type="input" [(ngModel)]="mensaje" (keypress)="escribiendo()" (keyup.enter)="agregar()" name="mensaje" placeholder="Escribe el mensaje aquí" class="form-control rounded shadow-sm">
+                          <input type="input" [(ngModel)]="mensaje" id="msjbox" (keyup.enter)="agregar()" name="mensaje" placeholder="Escribe el mensaje aquí" class="form-control rounded shadow-sm">
                         </div>
                         <div class="col">
                           <button type="button" (click)="agregar()" class="btn-dark">
                             <i class=" fa fa-arrow-circle-right" style="font-size: 30px; color: white;"></i>
                           </button>
+                        </div><br>
+                        <div>
+                          <p>{{typing}}</p>
                         </div>
                       </div>
                     </div>

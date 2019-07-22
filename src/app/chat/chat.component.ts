@@ -7,7 +7,9 @@ import Ws from '@adonisjs/websocket-client';
 import { Router } from '@angular/router';
 import { Key } from '../Modelos/key';
 import * as $ from 'jquery';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Observable, fromEvent, observable } from 'rxjs';
+import { throttleTime, map, debounceTime, merge } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-chat',
@@ -19,15 +21,17 @@ export class ChatComponent implements OnInit {
   Arreglo = new Array<Mensaje>();
   mensaje: string = '';
   Usuario:User;
-
+  mensajito: Observable<any>;
   grupos: any;
   grupo: number = null;
   mensajes: Array<Mensaje>;
+  typing: String = "";
 
   //Conexión WebSocket
   socket= Ws(conexion.url_websocket);
   channel: any;
   constructor(private _ChatService:ChatService,private _Router:Router) {
+
 
     //Conexión y subscripción
     this.socket = this.socket.connect();
@@ -129,10 +133,75 @@ export class ChatComponent implements OnInit {
     this.channel.on('close', data => {
 
     });
+
+    this.channel.on('escribiendo', data => {
+      this.genteEscribiendo(data);
+    });
+
+    this.channel.on('notescribiendo', data => {
+      this.genteEscribiendo(data);
+    });
+
+    this.escribiendo();
   }
 
   escribiendo() {
-    alert("JAJAJA")
+    //se obtiene el input con un selector y se crea con fromEvent un observable
+    var input = document.querySelector("#msjbox");
+    var obs = fromEvent(input, 'input');
+
+    /*
+      pipe al observable para usar el throttleTime y no saturar el socket con mensajes
+      se hace un merge para agregar y que no se confunda de operador (debouncetime) el cual servirá para
+      detectar cuando alguien deje de escribir.
+      Se le hace un map donde se le asigna un nombre al operador y poder identificarlo luego para mandar un emit distinto
+    */
+
+    const subscriber = obs.pipe(
+      throttleTime(2000),
+      map(() => 'throttle'),
+      merge(
+        obs.pipe(
+          debounceTime(300000),
+          map(() => 'debounce'),
+        )
+      )
+    ).subscribe((x) => { //se obtiene la subscripcion y se manda por el canal que alguien escribe
+
+      var data = {
+        grupo: this.grupo,
+        usuario: localStorage.getItem('nick')
+      };
+
+      if (x === 'throttle') {
+        //si hay alguien escribiendo
+        this.socket.getSubscription('grupo:' + this.grupo).emit('escribiendo', data);
+      } else {
+        //cuando alguien deje de escribir
+        this.socket.getSubscription('grupo:' + this.grupo).emit('notescribiendo', data);
+      }
+    });
+  }
+
+  genteEscribiendo(data) {
+    if (typeof data !== 'undefined') {
+      if (data.length > 0 && data.length < 2) {
+        this.typing = data[0] + ' está escribiendo...';
+      } else if (data.length === 2) {
+        data = data.filter((usuario) => {
+          return usuario !== localStorage.getItem('nick');
+        });
+
+        let usuarios = data.join(', ');
+        this.typing = usuarios + ' están escribiendo...';
+      } else if (data.length > 2) {
+        data = data.filter((usuario) => {
+          return usuario !== localStorage.getItem('nick');
+        });
+
+        this.typing = 'Varias personas están escribiendo...';
+      }
+    }
   }
 
 
