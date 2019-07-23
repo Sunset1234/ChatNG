@@ -30,6 +30,9 @@ export class ChatComponent implements OnInit {
   mensajes: Array<Mensaje>;
   typing: String = "";
 
+  MensajeTitulo: string;
+
+
   //Conexión WebSocket
   socket= Ws(conexion.url_websocket);
   channel: any;
@@ -43,7 +46,7 @@ export class ChatComponent implements OnInit {
     //Listener para nuevos Contactos
     this.channel.on('message', (data) => {
       this._ChatService.GetContactos(this.id).subscribe(data=>{
-        this.Usuario=data     
+        this.Usuario=data
       });
     });
 
@@ -81,7 +84,21 @@ export class ChatComponent implements OnInit {
     //Ahí está el usuario para que lo usen en sus consultas
     console.log(usuario)
 
+    this.mandar(usuario.id,usuario.nickname);
+
   }
+//mandar datos al chat
+mandar(id , nickname){
+  const remitente = {  id, nickname};
+  const emisor = {id: localStorage.getItem('jugador') , nickname: localStorage.getItem('nick')};
+  this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
+    console.log(data);
+    console.log(data['chat']._id);
+    localStorage.setItem('chat', data['chat']._id);
+    this.mensajes= new Array<Mensaje>();
+    this.MensajeTitulo = 'Estás charlando con: ' + nickname;
+     });
+}
 
   //Método de prueba para mandar al chat
   tipo:string;
@@ -131,7 +148,7 @@ export class ChatComponent implements OnInit {
         )
       );
     });
-    
+
     this.channel.on('entrar', data => {
       console.log('acaba de entrar un usuario')
     });
@@ -229,10 +246,10 @@ export class ChatComponent implements OnInit {
   //Enviar Archivos------------------------------------------------------------------------------------------------------------------
   //para enviar audios-------
   guardaraudio(event){
-    alert('holaaaa archivo');  
+    alert('holaaaa archivo');
     let elemnt = event.target
-    let formData = new FormData()     
-     
+    let formData = new FormData()
+
      if(elemnt.files.length > 0)
      {
        formData.append('file',elemnt.files[0])
@@ -249,14 +266,14 @@ export class ChatComponent implements OnInit {
         console.log(this.tipo);
       });
        })
-     }  
+     }
   }
 //para enviar imagen---------------
   guardarimagen(event){
-    alert('holaaaa archivo');  
+    alert('holaaaa archivo');
     let elemnt = event.target
-    let formData = new FormData()     
-     
+    let formData = new FormData()
+
      if(elemnt.files.length > 0)
      {
        formData.append('file',elemnt.files[0])
@@ -278,7 +295,7 @@ export class ChatComponent implements OnInit {
 //para enviar videos------------------
     guardarvideo(event){
     let elemnt = event.target
-    let formData = new FormData()     
+    let formData = new FormData()
       if(elemnt.files.length > 0)
      {
         formData.append('file',elemnt.files[0])
@@ -296,6 +313,6 @@ export class ChatComponent implements OnInit {
         })
       }
       }
-   
+
 
 }

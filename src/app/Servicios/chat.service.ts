@@ -7,7 +7,7 @@ import { Mensaje } from '../Clases/mensaje';
   providedIn: 'root'
 })
 export class ChatService {
-  
+
   constructor(private http: HttpClient) { }
 
   root: string = conexion.url_http;
@@ -40,5 +40,13 @@ export class ChatService {
 
     return this.http.post<any>(this.root + 'grupopost', obj);
   }
-
+   //este servicio obtiene si existe el chat sino lo crea y obtiene el historial, chingón no?
+   obtener_chats(emisor, remitente) {
+    return this.http.post(this.root + 'chats', { emisor, remitente});
+  }
+  //pruebas para mandar todo tipo de mensajes en un solo método
+  mandarMensaje(idChat, mensaje){
+    console.log(mensaje)
+    return this.http.post(this.root + 'mensaje',{ idChat, mensaje} );
+  };
 }
