@@ -246,7 +246,7 @@ mandar(id , nickname){
   //Enviar Archivos------------------------------------------------------------------------------------------------------------------
   //para enviar audios-------
   guardaraudio(event){
-    alert('holaaaa archivo');
+   
     let elemnt = event.target
     let formData = new FormData()
 
@@ -270,7 +270,7 @@ mandar(id , nickname){
   }
 //para enviar imagen---------------
   guardarimagen(event){
-    alert('holaaaa archivo');
+    
     let elemnt = event.target
     let formData = new FormData()
 
