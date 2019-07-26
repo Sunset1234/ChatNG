@@ -173,7 +173,7 @@ mandar(id , nickname){
     });
 
     this.channel.on('notescribiendo', data => {
-      debugger;
+
       this.genteEscribiendo(data);
     });
 
