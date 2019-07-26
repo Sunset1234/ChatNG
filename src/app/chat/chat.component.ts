@@ -118,6 +118,13 @@ mandar(id , nickname){
   }
 
   irGrupo(id_grupo: number) {
+
+    this.channel = this.socket.getSubscription('grupo:' + this.grupo);
+
+    if (typeof this.channel !== 'undefined' && this.channel) {
+      this.channel.close();
+    }
+
     this.grupo = id_grupo;
     //traer historial del grupo
     this._ChatService.GetChatGrupo(id_grupo).subscribe(res => {
@@ -134,7 +141,12 @@ mandar(id , nickname){
   }
 
   subscribirGrupo(grupo_id: number) {
-    this.channel = this.socket.subscribe('grupo:' + grupo_id)
+
+    this.channel = this.socket.getSubscription('grupo:' + grupo_id);
+
+    if (!this.channel) {
+      this.channel = this.socket.subscribe('grupo:' + grupo_id);
+    }
 
     this.channel.on('error', data => {
 
