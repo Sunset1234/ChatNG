@@ -21,7 +21,7 @@ import { text } from '@angular/core/src/render3';
 })
 export class ChatComponent implements OnInit {
 
-  Arreglo = new Array<Mensaje>();
+  Arreglo: Array<Mensaje>;
   mensaje: string = '';
   Usuario:User;
   mensajito: Observable<any>;
@@ -82,22 +82,20 @@ export class ChatComponent implements OnInit {
 
   ClickUsuario(usuario){
     this.mandar(usuario.id,usuario.nickname);
-  }
-
-  CrearGrupo(){
+    this.MensajeTitulo = 'Estás charlando con: ' + usuario.nickname;
 
   }
 
 //mandar datos al chat
 mandar(id , nickname){
   const remitente = {  id, nickname};
-  const emisor = {id: localStorage.getItem('jugador') , nickname: localStorage.getItem('nick')};
+  const emisor = {id: localStorage.getItem('user_id') , nickname: localStorage.getItem('nick')};
   this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
     console.log(data);
-    console.log(data['chat']._id);
+    /*console.log(data['chat']._id);
     localStorage.setItem('chat', data['chat']._id);
     this.mensajes= new Array<Mensaje>();
-    this.MensajeTitulo = 'Estás charlando con: ' + nickname;
+    this.MensajeTitulo = 'Estás charlando con: ' + nickname;*/
      });
 }
 
@@ -262,7 +260,7 @@ mandar(id , nickname){
   //Enviar Archivos------------------------------------------------------------------------------------------------------------------
   //para enviar audios-------
   guardaraudio(event){
-   
+
     let elemnt = event.target
     let formData = new FormData()
 
@@ -286,7 +284,7 @@ mandar(id , nickname){
   }
 //para enviar imagen---------------
   guardarimagen(event){
-    
+
     let elemnt = event.target
     let formData = new FormData()
 
