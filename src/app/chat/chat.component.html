@@ -4,30 +4,31 @@
         <div class="row">
             <!-----------BARRA LATERAL IZQUIERDA------->
               <div class="col-12 barra-contact">
+                
+                <!--------NICKNAME Y CERRAR SESIÓN------>
                 <div class="row barra">
-
-                  <!--------NICKNAME Y CERRAR SESIÓN------>
-                  <div class="col-2">
-                    <h3>{{this.nick}}</h3>
+                  <div class="addgroup col">
+                    <img (click)=CrearGrupo() class="gruposimg" src="https://image.flaticon.com/icons/png/512/33/33308.png" alt="imagen">
                   </div>
-                  <div class="col-lg-6 offset-3">
-                    <div class="form-group">
-                      <button class="btn btn-danger" (click)="CerrarSesion()">Cerrar Sesión</button>
-                    </div>
+                  <div class="col-6 nickname" >
+                    <h6 class="display-9">{{this.nick}}</h6> <span class="dot"></span>
+                  </div>
+                  <div class="col signout">
+                    <img class="salir" (click)="CerrarSesion()" src="https://cdn4.iconfinder.com/data/icons/miu/24/common-logout-signout-exit-glyph-512.png" alt="">
                   </div>
                 </div>
 
                 <!---------------BARRA DE CONTACTOS--------------->
-                <div>
+                <div class="lista">
                   <ul class="list-group" id="contact-list">
                     <li class="list-group-item contacto" *ngFor="let item of Usuario">
-                      <a (click)="ClickUsuario(item)">
+                      <a (click)="ClickUsuario(item)" class="contacto">
                         <div class="row w-100">
                           <div class="col-12 col-sm-6 col-md-3 px-0">
-                              <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                              <img src="https://img.icons8.com/bubbles/2x/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                           </div>
-                          <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
-                                <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
+                          <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
+                                <span class="name fa fa-user fa-2x text-secondary float-right pulse" title="online now"></span>
                                 <label class="pointer name lead">{{item.nickname}}</label>
                                 <br>
                           </div>
@@ -37,25 +38,27 @@
                   </ul>
                 </div>
 
-              </div><!--FIN BARRA IZQUIERDA-->
-
-            <!-----------------BARRA DE GRUPOS----------------->
-              <div class="col-12 barra-contact-grupos">
-                  <ul class="list-group pull-down" id="contact-list">
-                      <li class="list-group-item" *ngFor="let grupo of grupos">
-                            <div class="row w-100">
-                                <div class="col-12 col-sm-6 col-md-3 px-0">
-                                    <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
-                                </div>
-                                <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left" (click) = "irGrupo(grupo.id)">
-                                      <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
-                                      <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
-                                      <br>
-                                </div>
+                <!-----------------BARRA DE GRUPOS----------------->
+                <div style="align-content: center"><h4>Grupos</h4></div>
+                <div class="lista">
+                    <ul class="list-group" id="contact-list">
+                      <li class="list-group-item contacto" *ngFor="let grupo of grupos">
+                        <a (click)="irGrupo(grupo.id)" class="contacto">
+                          <div class="row w-100">
+                            <div class="col-12 col-sm-6 col-md-3 px-0">
+                                <img src="https://img.icons8.com/bubbles/2x/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                             </div>
+                            <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
+                                  <span class="name fa fa-group fa-2x text-success float-right pulse" title="online now"></span>
+                                  <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
+                                  <br>
+                            </div>
+                          </div>
+                        </a>
                       </li>
-                  </ul>
-              </div>
+                    </ul>
+                  </div>
+              </div><!--FIN BARRA IZQUIERDA-->
         </div>
       </div>
 

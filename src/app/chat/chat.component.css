@@ -1,25 +1,114 @@
+/*------BARRA LATERAL DE CONTACTOS-----*/
 .barra-contact{
     height: 100vh;
     overflow-y: scroll;
     width: 100vh;
 }
 
+.namecontact{
+    margin-top:6%;
+}
+
+.lista{
+    margin-top:5px;
+}
+
 .pointer{
     cursor:pointer;
 }
 
-.name{
-    margin-top:19px;
+.contacto:hover{
+    background: rgba(238, 238, 238,0.9);
 }
+
+
+
+/*----------SCROLL PERSONALIZADO------------*/
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #7A7A7A  ; 
+}
+
+
+
 
 .container-fluid{
     margin:0;
 }
 
+
+/*---BARRA AGREGAR GRUPO,NICKNAME Y CERRAR SESIÓN*/
 .barra{
-    background-color:rgb(231, 231, 231);
-    padding-left:100px;
+    font-family: "Poppins", Helvetica, Arial, sans-serif;
+    background-color:rgb(52,58,64);
 }
+
+.gruposimg{
+    width: 7vh;
+    height: 6vh; 
+    filter: invert(100%);
+}
+
+.addgroup{
+    text-align: center;
+    padding: 5%;
+}
+
+.addgroup:hover{
+    cursor: pointer;
+}
+
+
+.nickname{
+    padding: 8.5%;
+    text-align: center;
+    color: white;
+}
+
+.btnexit{
+    width: 7%;
+    height: 10%;
+    background: url("https://cdn4.iconfinder.com/data/icons/miu/24/common-logout-signout-exit-glyph-512.png");
+
+}
+
+.signout{
+    padding: 7%;
+    align-content: center
+}
+
+.salir{
+    width: 80%;
+    height: 80%; 
+    filter: invert(100%);
+}
+
+.salir:hover{
+    cursor: pointer;
+}
+
+.dot{
+    height: 25px;
+    width: 25px;
+    background-color: rgb(78, 207, 85);
+    border-radius: 50%;
+}
+
 
 
 

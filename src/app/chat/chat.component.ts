@@ -81,12 +81,13 @@ export class ChatComponent implements OnInit {
   }
 
   ClickUsuario(usuario){
-    //Ahí está el usuario para que lo usen en sus consultas
-    console.log(usuario)
-
     this.mandar(usuario.id,usuario.nickname);
+  }
+
+  CrearGrupo(){
 
   }
+
 //mandar datos al chat
 mandar(id , nickname){
   const remitente = {  id, nickname};
