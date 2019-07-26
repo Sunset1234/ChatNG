@@ -174,6 +174,7 @@ mandar(id , nickname){
     });
 
     this.channel.on('notescribiendo', data => {
+      debugger;
       this.genteEscribiendo(data);
     });
 
@@ -197,7 +198,7 @@ mandar(id , nickname){
       map(() => 'throttle'),
       merge(
         obs.pipe(
-          debounceTime(300000),
+          debounceTime(2000),
           map(() => 'debounce'),
         )
       )
@@ -235,6 +236,8 @@ mandar(id , nickname){
         });
 
         this.typing = 'Varias personas están escribiendo...';
+      } else {
+        this.typing = '';
       }
     }
   }
