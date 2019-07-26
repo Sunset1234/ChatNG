@@ -1,7 +1,7 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
-        <div class="row">
+        <div class="row overflow-auto ">
             <!-----------BARRA LATERAL IZQUIERDA------->
               <div class="col-12 barra-contact">
                 <div class="row barra">
@@ -24,8 +24,10 @@
                       <a (click)="ClickUsuario(item)">
                         <div class="row w-100">
                           <div class="col-12 col-sm-6 col-md-3 px-0">
-                              <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
-                          </div>
+                             <!-- <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                          -->
+                          <i class="fa fa-4x fa-user-circle"></i>
+                            </div>
                           <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left">
                                 <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
                                 <label class="pointer name lead">{{item.nickname}}</label>
@@ -36,17 +38,18 @@
                     </li>
                   </ul>
                 </div>
-
-              </div><!--FIN BARRA IZQUIERDA-->
-
+              <hr class="my-2">
             <!-----------------BARRA DE GRUPOS----------------->
-              <div class="col-12 barra-contact-grupos">
+              <div class=" barra-contact-grupos">
+                  <p class="lea text center"> Conversaciones</p>
                   <ul class="list-group pull-down" id="contact-list">
                       <li class="list-group-item" *ngFor="let grupo of grupos">
                             <div class="row w-100">
                                 <div class="col-12 col-sm-6 col-md-3 px-0">
-                                    <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
-                                </div>
+                                <!--    <img src="https://maljikakamra.com/admin/control/images/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                                -->
+                                <i class="fa fa-4x fa-group"></i>
+                              </div>
                                 <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left" (click) = "irGrupo(grupo.id)">
                                       <span class="name fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
                                       <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
@@ -57,16 +60,18 @@
                   </ul>
               </div>
         </div>
-      </div>
+
+      </div><!--FIN BARRA IZQUIERDA-->
+    </div>
 
         <!------------------------CHAT------------------------>
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 chat" *ngIf="mensajes ; else principal" >
-            <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 chat" *ngIf="Arreglo ; else principal" >
+            <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow " >
                 <div class="col-12 d-flex flex-column" >
                     <div class="text-center  ">
                         <p class="lead p-3 ">{{ this.MensajeTitulo }}</p>
                     </div>
-                    <div class=" text-right bd-highlight overflow-auto" style="height: 80vh">
+                    <div class=" text-right bd-highlight overflow-auto" style="height: 90vh" >
                       <div style="margin: 10px;" class="" *ngFor="let item of Arreglo">
                         	<div *ngIf="item.mensaje.indexOf('.png') !== -1 || item.mensaje.indexOf('.jpeg') !== -1 || item.mensaje.indexOf('.jpg') !== -1">
                               <b>{{ item.usuario }}</b><br>
@@ -85,9 +90,13 @@
                           <b>{{ item.usuario }}</b> {{ ": "+ item.mensaje }}
                         </h6>
                       </div>
+                      <div id="llega"></div>
                     </div>
                 </div>
-                <div class="col-12 align-items-end">
+                <div>
+                  <p>{{typing}}</p>
+                </div>
+                <div class="col-12 align-items-end justify-content-end align-content-end">
                   <form action="">
                     <div class="form-group">
                         <div class="form-row">
@@ -97,16 +106,14 @@
                                   </button>
                                   <input type="file" name="myfile" accept="image/*" (change)="guardarimagen($event)" />
                             </div>
-                        </div>
-                      <div class="form-row">
+
                           <div class="col upload-btn-wrapper">
                               <button class="btn-primary">
                                   <i class=" fa fa-file" style="font-size: 30px; color: white;"></i>
                                 </button>
                                 <input type="file" name="myfile" accept="video/*" (change)="guardarvideo($event)" />
                           </div>
-                      </div>
-                      <div class="form-row">
+
                         <div class="col upload-btn-wrapper">
                             <button class="btn-warning">
                                 <i class=" fa fa-headphones" style="font-size: 30px; color: white;"></i>
@@ -120,11 +127,10 @@
                         <div class="col">
                           <button type="button" (click)="agregar()" class="btn-dark">
                             <i class=" fa fa-arrow-circle-right" style="font-size: 30px; color: white;"></i>
+
                           </button>
                         </div><br>
-                        <div>
-                          <p>{{typing}}</p>
-                        </div>
+
                       </div>
                     </div>
                   </form>
@@ -137,7 +143,7 @@
             <div class="row bg-dark badge-dark animated fadeIn rounded-bottom shadow" style="height: 100vh" >
                 <div class="col-12 d-flex flex-column align-content-center align-self-center" >
                     <div class="text-center animated bounce  ">
-                        <p class="lead ">Elige a un amigo para empezar a hablar </p>
+                        <p class="lead ">Elige un amigo para empezar a hablar </p>
                         <i class=" fa fa-smile-o" style="font-size: 60px;"></i>
                     </div>
                 </div>
