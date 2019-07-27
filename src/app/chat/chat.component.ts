@@ -91,12 +91,9 @@ mandar(id , nickname){
   const remitente = {  id, nickname};
   const emisor = {id: localStorage.getItem('user_id') , nickname: localStorage.getItem('nick')};
   this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
-    console.log(data);
-    /*console.log(data['chat']._id);
-    localStorage.setItem('chat', data['chat']._id);
-    this.mensajes= new Array<Mensaje>();
-    this.MensajeTitulo = 'Estás charlando con: ' + nickname;*/
-     });
+    console.log(data['grupo'].id);
+    this.irGrupo(data['grupo'].id);
+  });
 }
 
   //Método de prueba para mandar al chat
