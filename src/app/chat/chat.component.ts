@@ -13,12 +13,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { strictEqual } from 'assert';
 import { text } from '@angular/core/src/render3';
 
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
+
 export class ChatComponent implements OnInit {
 
   Arreglo: Array<Mensaje>;
@@ -33,11 +33,14 @@ export class ChatComponent implements OnInit {
   MensajeTitulo: string;
 
 
+  //VALIDACIÓN PARA MOSTRAR CONTACTOS O CONVERSACIONES
+  ValidaContactos:boolean
+
+
   //Conexión WebSocket
   socket= Ws(conexion.url_websocket);
   channel: any;
   constructor(private http:HttpClient,private _ChatService:ChatService,private _Router:Router) {
-
 
     //Conexión y subscripción
     this.socket = this.socket.connect();
@@ -52,13 +55,15 @@ export class ChatComponent implements OnInit {
 
   }
 
-
   //Variables de Local Storage
   id:string;
   nick:string;
   ngOnInit() {
 
     this.llaves = new Key();
+
+    //Por default no muestro contactos
+    this.ValidaContactos=false;
 
     //Información Usuario
     this.id=localStorage.getItem('user_id');
@@ -69,6 +74,7 @@ export class ChatComponent implements OnInit {
       this.Usuario=data
     });
 
+    //Obtener Grupos
     this._ChatService.GetGrupos().subscribe(res => {
       this.grupos = res.grupos;
     });
@@ -77,27 +83,48 @@ export class ChatComponent implements OnInit {
       $("a").click(function(event) {
         event.preventDefault();
       });
+
+      $( ".lista2" ).click(function( event ) {
+        var tipo=event.target.nodeName
+        var id=$(""+event.target.nodeName).val();
+        console.log(id)
+        if(tipo=="INUT"){
+          $(".contacto").css("background","rgba(189, 189, 189,0.8)");
+        }
+
+        
+      });
+
     });
+  }
+
+  ItemUser(item){
+    var Id:string=item.id;
+    console.log(item.id);
   }
 
   ClickUsuario(usuario){
     this.mandar(usuario.id,usuario.nickname);
     this.MensajeTitulo = 'Estás charlando con: ' + usuario.nickname;
-
+    this.ValidaContactos=false;
   }
 
-//mandar datos al chat
-mandar(id , nickname){
-  const remitente = {  id, nickname};
-  const emisor = {id: localStorage.getItem('user_id') , nickname: localStorage.getItem('nick')};
-  this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
-    console.log(data);
-    /*console.log(data['chat']._id);
-    localStorage.setItem('chat', data['chat']._id);
-    this.mensajes= new Array<Mensaje>();
-    this.MensajeTitulo = 'Estás charlando con: ' + nickname;*/
-     });
-}
+  MostrarContactos(){
+    this.ValidaContactos=true;
+  }
+
+  //mandar datos al chat
+  mandar(id , nickname){
+    const remitente = {  id, nickname};
+    const emisor = {id: localStorage.getItem('user_id') , nickname: localStorage.getItem('nick')};
+    this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
+      console.log(data);
+      /*console.log(data['chat']._id);
+      localStorage.setItem('chat', data['chat']._id);
+      this.mensajes= new Array<Mensaje>();
+      this.MensajeTitulo = 'Estás charlando con: ' + nickname;*/
+      });
+  }
 
   //Método de prueba para mandar al chat
   tipo:string;
