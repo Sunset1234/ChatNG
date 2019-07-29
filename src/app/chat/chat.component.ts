@@ -31,9 +31,6 @@ export class ChatComponent implements OnInit {
   typing: String = "";
   tipogrupo:any;
 
-  //Variables de Local Storage
-  id: string;
-  nick: string;
   MensajeTitulo: string;
 
 
@@ -51,7 +48,7 @@ export class ChatComponent implements OnInit {
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('Contactos');
     this.channel2=this.socket.subscribe('MisGrupos');
-
+    
     //Listener para nuevos Contactos
     this.channel.on('message', (data) => {
       this._ChatService.GetContactos(this.id).subscribe(data=>{
@@ -60,17 +57,17 @@ export class ChatComponent implements OnInit {
     });
 
      //Listener para nuevos Grupos
-    this.channel2.on('message', (data) => {
+     this.channel2.on('message', (data) => {
       this._ChatService.GetGrupos().subscribe(res => {
-        res.grupos.forEach(element => {
-          console.log(element)
-        });
-      this.grupos = res.grupos;
+        this.grupos = res.grupos;
       });
     });
 
   }
 
+  //Variables de Local Storage
+  id:string;
+  nick:string;
   ngOnInit() {
 
     this.llaves = new Key();
@@ -89,7 +86,10 @@ export class ChatComponent implements OnInit {
 
     //Obtener Grupos
     this._ChatService.GetGrupos().subscribe(res => {
-
+      /*res['grupos'].forEach(element => {
+        this.tipogrupo=element;
+        console.log(this.tipogrupo['tipo'])
+      });*/
       this.grupos = res.grupos;
     });
 
@@ -100,44 +100,43 @@ export class ChatComponent implements OnInit {
     });
   }
 
-//poner el nombre de quién hablas
 
-  mostrarNombre(nombre){
-    console.log(nombre);
-    let valor= nombre.split(" ")
-    if ( valor[0] !== this.nick) {
-      return valor[0]
-    }else{
-      return valor[1]
-    }
-  }
   //Nombre Grupo
   NombreGrupo:string;
   CrearGrupo(){
-    //Leyendo los id's seleccionados
-    let valoresCheck = [];
 
-    $("input[type=checkbox]:checked").each(function(){
-        valoresCheck.push(this.value);
+    if(this.NombreGrupo==""){
+      alert('Escribe un nombre para el grupo');
+    }
+    else{
+//Leyendo los id's seleccionados
+let valoresCheck = []; 
+
+$("input[type=checkbox]:checked").each(function(){
+    valoresCheck.push(this.value);
+});
+
+valoresCheck.push(localStorage.getItem('user_id'));
+let idgrupo:any;
+
+//Canal de grupos
+this.channel2 = this.socket.getSubscription('MisGrupos');
+
+this._ChatService.CrearGrupo(this.NombreGrupo,valoresCheck).subscribe(data=>{
+  idgrupo=data['grupo'].id
+
+  for (let index = 0; index < valoresCheck.length; index++) {
+    console.log(valoresCheck[index])
+    this._ChatService.AsignaGente(valoresCheck[index],idgrupo).subscribe(data=>{
+      this.channel2.emit('message', data);
     });
+  }
 
-    valoresCheck.push(localStorage.getItem('user_id'));
-    let idgrupo:any;
-
-    //Canal de grupos
-    this.channel2 = this.socket.getSubscription('MisGrupos');
-
-    this._ChatService.CrearGrupo(this.NombreGrupo,valoresCheck).subscribe(data=>{
-      idgrupo=data['grupo'].id
-
-      for (let index = 0; index < valoresCheck.length; index++) {
-        console.log(valoresCheck[index])
-        this._ChatService.AsignaGente(valoresCheck[index],idgrupo).subscribe(data=>{
-          this.channel2.emit('message', data);
-        });
-      }
-
-    });
+});
+this.NombreGrupo="";
+  
+    }
+    
   }
 
   ClickUsuario(usuario){
@@ -171,15 +170,20 @@ mandar(id , nickname){
     // this.Arreglo.push(new Mensaje('yo', this.mensaje));
     // console.log(this.Arreglo);
     // this.mensaje = '';
-
-    var msj = new Mensaje(
-      localStorage.getItem('nombre'),
-      this.mensaje
-    );
-      this.tipo='txt';
-    this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
-      this.mensaje = '';
-    });
+    if (this.mensaje==""){
+      alert('¡Escribe un mensaje!');
+    }
+    else{
+      var msj = new Mensaje(
+        localStorage.getItem('nombre'),
+        this.mensaje
+      );
+        this.tipo='txt';
+      this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
+        this.mensaje = '';
+      });
+    }
+    
   }
 
   irGrupo(id_grupo: number) {
