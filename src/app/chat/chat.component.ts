@@ -243,7 +243,9 @@ mandar(id , nickname){
       this.genteEscribiendo(data);
     });
 
-    this.escribiendo();
+    setTimeout(() => {
+      this.escribiendo();
+    }, 1500)
   }
 
   escribiendo() {
