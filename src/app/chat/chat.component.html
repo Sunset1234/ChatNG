@@ -119,7 +119,12 @@
                             <img src="https://img.icons8.com/bubbles/2x/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
                         </div>
                         <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
-                              <span class="name fa fa-group fa-2x text-success float-right pulse" title="online now"></span>
+
+                              <span class="name fa fa-user fa-2x text-success float-right pulse" *ngIf="grupo.tipo=='personal';else iconogrupal" title="online now"></span>
+
+                              <ng-template #iconogrupal>
+                                <span class="name fa fa-group fa-2x text-success float-right pulse"  title="online now"></span>
+                              </ng-template>
 
                               <label class="pointer name lead" *ngIf="grupo.tipo=='personal';else normal">{{ mostrarNombre(grupo.nombre_grupo)  }}</label>
                               <ng-template #normal>
