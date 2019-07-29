@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit {
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('Contactos');
     this.channel2=this.socket.subscribe('MisGrupos');
-    
+
     //Listener para nuevos Contactos
     this.channel.on('message', (data) => {
       this._ChatService.GetContactos(this.id).subscribe(data=>{
@@ -110,7 +110,7 @@ export class ChatComponent implements OnInit {
     }
     else{
 //Leyendo los id's seleccionados
-let valoresCheck = []; 
+let valoresCheck = [];
 
 $("input[type=checkbox]:checked").each(function(){
     valoresCheck.push(this.value);
@@ -134,9 +134,9 @@ this._ChatService.CrearGrupo(this.NombreGrupo,valoresCheck).subscribe(data=>{
 
 });
 this.NombreGrupo="";
-  
+
     }
-    
+
   }
 
   ClickUsuario(usuario){
@@ -169,7 +169,7 @@ mandar(id , nickname){
   const emisor = {id: localStorage.getItem('user_id') , nickname: localStorage.getItem('nick')};
   this._ChatService.obtener_chats(emisor, remitente).subscribe(data => {
     console.log(data['grupo'].id);
-    this.irGrupo(data['grupo'].id);
+    this.irGrupo(data['grupo'].id,data['grupo']);
   });
 }
 
@@ -192,17 +192,28 @@ mandar(id , nickname){
         this.mensaje = '';
       });
     }
-    
+
   }
 
-  irGrupo(id_grupo: number) {
+  irGrupo(id_grupo: number, grupo) {
 
     this.channel = this.socket.getSubscription('grupo:' + this.grupo);
 
     if (typeof this.channel !== 'undefined' && this.channel) {
       this.channel.close();
     }
-
+    if (grupo['tipo'] === 'personal') {
+      this.MensajeTitulo = '';
+      const nombre = grupo['nombre_grupo'].split(' ');
+      if ( nombre[0] !== this.nick) {
+        this.MensajeTitulo = 'Hablas con: ' + nombre[0];
+      } else {
+        this.MensajeTitulo = 'Hablas con: ' + nombre[1];
+      }
+    } else {
+      this.MensajeTitulo = '';
+      this.MensajeTitulo = 'Grupo de: ' + grupo['nombre_grupo'];
+    }
     this.grupo = id_grupo;
     //traer historial del grupo
     this._ChatService.GetChatGrupo(id_grupo).subscribe(res => {
