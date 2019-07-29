@@ -29,6 +29,7 @@ export class ChatComponent implements OnInit {
   grupo: number = null;
   mensajes: Array<Mensaje>;
   typing: String = "";
+  tipogrupo:any;
 
   MensajeTitulo: string;
 
@@ -40,16 +41,25 @@ export class ChatComponent implements OnInit {
   //Conexión WebSocket
   socket= Ws(conexion.url_websocket);
   channel: any;
+  channel2:any;
   constructor(private http:HttpClient,private _ChatService:ChatService,private _Router:Router) {
 
-    //Conexión y subscripción
+    //Conexión y subscripción de Contactos
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('Contactos');
-
+    this.channel2=this.socket.subscribe('MisGrupos');
+    
     //Listener para nuevos Contactos
     this.channel.on('message', (data) => {
       this._ChatService.GetContactos(this.id).subscribe(data=>{
         this.Usuario=data
+      });
+    });
+
+     //Listener para nuevos Grupos
+     this.channel2.on('message', (data) => {
+      this._ChatService.GetGrupos().subscribe(res => {
+        this.grupos = res.grupos;
       });
     });
 
@@ -76,6 +86,10 @@ export class ChatComponent implements OnInit {
 
     //Obtener Grupos
     this._ChatService.GetGrupos().subscribe(res => {
+      /*res['grupos'].forEach(element => {
+        this.tipogrupo=element;
+        console.log(this.tipogrupo['tipo'])
+      });*/
       this.grupos = res.grupos;
     });
 
@@ -83,30 +97,48 @@ export class ChatComponent implements OnInit {
       $("a").click(function(event) {
         event.preventDefault();
       });
-
-      $( ".lista2" ).click(function( event ) {
-        var tipo=event.target.nodeName
-        var id=$(""+event.target.nodeName).val();
-        console.log(id)
-        if(tipo=="INUT"){
-          $(".contacto").css("background","rgba(189, 189, 189,0.8)");
-        }
-
-        
-      });
-
     });
   }
 
-  ItemUser(item){
-    var Id:string=item.id;
-    console.log(item.id);
+
+  //Nombre Grupo
+  NombreGrupo:string;
+  CrearGrupo(){
+    //Leyendo los id's seleccionados
+    let valoresCheck = []; 
+
+    $("input[type=checkbox]:checked").each(function(){
+        valoresCheck.push(this.value);
+    });
+
+    valoresCheck.push(localStorage.getItem('user_id'));
+    let idgrupo:any;
+
+    //Canal de grupos
+    this.channel2 = this.socket.getSubscription('MisGrupos');
+
+    this._ChatService.CrearGrupo(this.NombreGrupo,valoresCheck).subscribe(data=>{
+      idgrupo=data['grupo'].id
+
+      for (let index = 0; index < valoresCheck.length; index++) {
+        console.log(valoresCheck[index])
+        this._ChatService.AsignaGente(valoresCheck[index],idgrupo).subscribe(data=>{
+          this.channel2.emit('message', data);
+        });
+      }
+
+    });
   }
 
   ClickUsuario(usuario){
     this.mandar(usuario.id,usuario.nickname);
     this.MensajeTitulo = 'Estás charlando con: ' + usuario.nickname;
     this.ValidaContactos=false;
+
+    //Canal de grupos
+    this.channel2 = this.socket.getSubscription('MisGrupos');
+    let data={mensaje:"hola"}
+    this.channel2.emit('message',data);
   }
 
   MostrarContactos(){

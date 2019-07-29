@@ -111,6 +111,15 @@ background: #7A7A7A  ;
     text-align: center;    
 }
 
+.btncreagrupo{
+    width: 40%;
+    height: 100%;
+}
+
+.btncreagrupo:hover{
+    cursor: pointer;
+}
+
 
 /*------MODAL----------*/
 .modal-body{

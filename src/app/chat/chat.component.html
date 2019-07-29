@@ -19,7 +19,7 @@
               <div class="col signout">
                 <img data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" class="salir" (click)="CerrarSesion()" src="https://cdn4.iconfinder.com/data/icons/miu/24/common-logout-signout-exit-glyph-512.png" alt="">
               </div>
-              <Button  data-toggle="modal" data-target="#exampleModal">Crea Grupo</Button>
+             
             </div>
 
             <!--------------MODAL CREAR GRUPOS------------->
@@ -39,7 +39,7 @@
                         <div class="form-group">
                           <label for="">Nombre del Grupo</label>
                           <input type="text"
-                            class="form-control" name="" id="" aria-describedby="helpId" placeholder="Escuela">
+                            class="form-control" [(ngModel)]="NombreGrupo" id="" aria-describedby="helpId" placeholder="Escuela">
                         </div>
                       </div>
 
@@ -75,33 +75,42 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div><!--FIN MODAL--->
 
             <!---------------BARRA DE CONTACTOS--------------->
-            <div class="lista" *ngIf="ValidaContactos">
-              <ul class="list-group" id="contact-list">
-                <li class="list-group-item contacto" *ngFor="let item of Usuario">
-                  <a (click)="ClickUsuario(item)" class="contacto">
-                    <div class="row w-100">
-                      <div class="col-12 col-sm-6 col-md-3 px-0">
-                          <img src="https://img.icons8.com/bubbles/2x/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+            <div class="conversaciones" *ngIf="ValidaContactos">
+              <p>Contactos</p>
+              <div class="lista" >
+                <ul class="list-group" id="contact-list">
+                  <li class="list-group-item contacto" *ngFor="let item of Usuario">
+                    <a (click)="ClickUsuario(item)" class="contacto">
+                      <div class="row w-100">
+                        <div class="col-12 col-sm-6 col-md-3 px-0">
+                            <img src="https://img.icons8.com/bubbles/2x/user.png" alt="Mike Anamendolla" class="rounded-circle mx-auto d-block img-fluid">
+                        </div>
+                        <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
+                              <span class="name fa fa-user fa-2x text-secondary float-right pulse" title="online now"></span>
+                              <label class="pointer name lead">{{item.nickname}}</label>
+                              <br>
+                        </div>
                       </div>
-                      <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
-                            <span class="name fa fa-user fa-2x text-secondary float-right pulse" title="online now"></span>
-                            <label class="pointer name lead">{{item.nickname}}</label>
-                            <br>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-
+            
             <!-----------------BARRA DE GRUPOS----------------->
-            <div class="conversaciones">
-              <p>Conversaciones</p>
-            </div>
-            <div class="lista" *ngIf="!ValidaContactos">
+            <div class="conversaciones" *ngIf="!ValidaContactos">
+              <div class="jider row">
+                <div class="col">
+                  <p>Conversaciones</p>
+                </div>
+                <div class="col">
+                  <img class="btncreagrupo" src="https://image.flaticon.com/icons/png/512/33/33308.png" alt="" data-toggle="modal" data-target="#exampleModal">
+                </div>  
+              </div>
+              <div class="lista" >
                 <ul class="list-group" id="contact-list">
                   <li class="list-group-item contacto" *ngFor="let grupo of grupos">
                     <a (click)="irGrupo(grupo.id)" class="contacto">
@@ -119,6 +128,8 @@
                   </li>
                 </ul>
               </div>
+            </div>
+
           </div><!--FIN BARRA IZQUIERDA-->
     </div>
 

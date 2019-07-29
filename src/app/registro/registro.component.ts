@@ -53,7 +53,7 @@ export class RegistroComponent implements OnInit {
     this.service.crearUser(nickname, password).subscribe(data => {
 
       Contactos.emit('message', data);
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
 
     });
 
