@@ -14,12 +14,12 @@
                     <svg class="dot">
                         <circle cx="50" cy="50" r="40" stroke-width="3" fill="green" />
                     </svg>
-                  </h6>     
+                  </h6>
               </div>
               <div class="col signout">
                 <img data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" class="salir" (click)="CerrarSesion()" src="https://cdn4.iconfinder.com/data/icons/miu/24/common-logout-signout-exit-glyph-512.png" alt="">
               </div>
-             
+
             </div>
 
             <!--------------MODAL CREAR GRUPOS------------->
@@ -50,7 +50,7 @@
                       <!-------SECCIÓN DE MOSTRAR CONTACTOS EN MODAL-------->
                       <div class="lista2">
                           <ul class="list-group" id="contact-list">
-                            <li class="list-group-item contacto" *ngFor="let item of Usuario">                             
+                            <li class="list-group-item contacto" *ngFor="let item of Usuario">
                               <a class="contacto ">
                                   <div class="row">
                                     <input type="checkbox" class="checar" value="{{item.id}}">
@@ -63,7 +63,7 @@
                                           <br>
                                     </div>
                                   </div>
-                                </a>                        
+                                </a>
                             </li>
                           </ul>
                         </div>
@@ -99,7 +99,7 @@
                 </ul>
               </div>
             </div>
-            
+
             <!-----------------BARRA DE GRUPOS----------------->
             <div class="conversaciones" *ngIf="!ValidaContactos">
               <div class="jider row">
@@ -108,7 +108,7 @@
                 </div>
                 <div class="col">
                   <img class="btncreagrupo" src="https://image.flaticon.com/icons/png/512/33/33308.png" alt="" data-toggle="modal" data-target="#exampleModal">
-                </div>  
+                </div>
               </div>
               <div class="lista" >
                 <ul class="list-group" id="contact-list">
@@ -120,7 +120,12 @@
                         </div>
                         <div class="pointer col-12 col-sm-6 col-md-9 text-center text-sm-left namecontact">
                               <span class="name fa fa-group fa-2x text-success float-right pulse" title="online now"></span>
-                              <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
+
+                              <label class="pointer name lead" *ngIf="grupo.tipo=='personal';else normal">{{ mostrarNombre(grupo.nombre_grupo)  }}</label>
+                              <ng-template #normal>
+                                <label class="pointer name lead">{{grupo.nombre_grupo}}</label>
+                              </ng-template>
+
                               <br>
                         </div>
                       </div>
