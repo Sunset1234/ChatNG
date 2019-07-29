@@ -269,7 +269,7 @@ mandar(id , nickname){
 
     setTimeout(() => {
       this.escribiendo();
-    }, 1500)
+    }, 1000)
   }
 
   escribiendo() {

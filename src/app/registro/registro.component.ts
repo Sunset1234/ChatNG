@@ -18,6 +18,7 @@ export class RegistroComponent implements OnInit {
     [
       Validators.required,
       Validators.minLength(2),
+      Validators.pattern("^[a-zA-Z0-9_]*$")
     ]),
     password: new FormControl('',
     [
