@@ -161,15 +161,20 @@ mandar(id , nickname){
     // this.Arreglo.push(new Mensaje('yo', this.mensaje));
     // console.log(this.Arreglo);
     // this.mensaje = '';
-
-    var msj = new Mensaje(
-      localStorage.getItem('nombre'),
-      this.mensaje
-    );
-      this.tipo='txt';
-    this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
-      this.mensaje = '';
-    });
+    if (this.mensaje==""){
+      alert('¡Escribe un mensaje!');
+    }
+    else{
+      var msj = new Mensaje(
+        localStorage.getItem('nombre'),
+        this.mensaje
+      );
+        this.tipo='txt';
+      this._ChatService.sendMessageToGroup(this.grupo, msj,this.tipo).subscribe(res => {
+        this.mensaje = '';
+      });
+    }
+    
   }
 
   irGrupo(id_grupo: number) {
