@@ -153,6 +153,15 @@ this.NombreGrupo="";
   MostrarContactos(){
     this.ValidaContactos=true;
   }
+  mostrarNombre(nombre){
+    console.log(nombre);
+    let valor= nombre.split(" ")
+    if ( valor[0] !== this.nick) {
+      return valor[0]
+    }else{
+      return valor[1]
+    }
+  }
 
 //mandar datos al chat
 mandar(id , nickname){
